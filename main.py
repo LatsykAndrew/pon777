@@ -1,36 +1,37 @@
+#імпорт бібліотек
 import pygame
 import time
 import random
 
 pygame.init()
-
+#кольори
 white = (255, 255, 255)
 yellow = (255, 255, 102)
 black = (0, 0, 0)
 red = (213, 50, 80)
 green = (0, 255, 0)
 blue = (50, 153, 213)
-
+#ширинависота
 dis_width = 600
 dis_height = 400
-
+#створення вікна
 dis = pygame.display.set_mode((dis_width, dis_height))
 pygame.display.set_caption('пон777')
 
 clock = pygame.time.Clock()
-
+#швидкість і додавання блоків
 snake_block = 10
 snake_speed = 15
-
+#шрифти
 font_style = pygame.font.SysFont("bahnschrift", 25)
 score_font = pygame.font.SysFont("comicsansms", 35)
 
-
+#додавання тексту з рахунком
 def Your_score(score):
     value = score_font.render("Яблук з'їджено: " + str(score), True, yellow)
     dis.blit(value, [0, 0])
 
-
+#малювання блоків
 def our_snake(snake_block, snake_list):
     for x in snake_list:
         pygame.draw.rect(dis, black, [x[0], x[1], snake_block, snake_block])
@@ -40,7 +41,7 @@ def message(msg, color):
     mesg = font_style.render(msg, True, color)
     dis.blit(mesg, [dis_width / 6, dis_height / 3])
 
-
+#маштаб
 def gameLoop():
     game_over = False
     game_close = False
@@ -56,7 +57,7 @@ def gameLoop():
 
     foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
     foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
-
+    #закінчення
     while not game_over:
 
         while game_close == True:
@@ -72,7 +73,7 @@ def gameLoop():
                         game_close = False
                     if event.key == pygame.K_c:
                         gameLoop()
-
+        #рухи змійки
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 game_over = True
@@ -89,7 +90,7 @@ def gameLoop():
                 elif event.key == pygame.K_DOWN:
                     y1_change = snake_block
                     x1_change = 0
-
+        #+блок до мейн змійки
         if x1 >= dis_width or x1 < 0 or y1 >= dis_height or y1 < 0:
             game_close = True
         x1 += x1_change
